@@ -1,26 +1,28 @@
 const path = require("path");
-var HTMLWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
-  entry: "./src/index.js",
+  entry: {
+    main: "./src/js/index.js",
+    vendor: "./src/js/vendor.js"
+  },
   plugins: [
-    new HTMLWebpackPlugin({
-      template: "./src/template.html"
-    })
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+    }),
   ],
   module: {
     rules: [
       {
-        // css onlu
-        // test: /\.css$/,
-        // use: ["style-loader","css-loader"]
-        //sass
-        test: /\.scss$/,
-        use: [
-          "style-loader", //3. js insert to dom
-          "css-loader", // 2. css to js
-          "sass-loader"// 1. turns sass to css
-        ]
+        test: /\.m?js$/,
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env']
+          }
+        }
       },
       {
         test: /\.html$/,

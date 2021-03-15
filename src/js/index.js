@@ -1,6 +1,7 @@
-import {hello} from '../js/module-a';
-import {Car} from '../js/module-a';
-import "./main.scss";
+import {hello} from './module-a';
+import {Car} from './module-a';
+import './module-b';
+import "../css/main.scss";
 
 console.log(hello() + "import");
 
